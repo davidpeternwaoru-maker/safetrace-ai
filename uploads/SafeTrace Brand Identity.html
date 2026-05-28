@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1400">
+<title>SafeTrace — Brand Identity System</title>
+<link rel="stylesheet" href="brand-tokens.css">
+<link rel="stylesheet" href="brand.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ======================================================
+     REUSABLE SVG SYMBOLS (logomark + sub-brand icons)
+====================================================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Primary brand gradient -->
+    <linearGradient id="stGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2B7A8C"/>
+      <stop offset="55%" stop-color="#16384A"/>
+      <stop offset="100%" stop-color="#0B1733"/>
+    </linearGradient>
+    <linearGradient id="stGradLight" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A6D3DC"/>
+      <stop offset="100%" stop-color="#7FB7C2"/>
+    </linearGradient>
+    <linearGradient id="stGradWarm" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7FB7C2"/>
+      <stop offset="100%" stop-color="#B7A8DC"/>
+    </linearGradient>
+
+    <!-- ============== Primary SafeTrace mark ============== -->
+    <!-- A cradle (shelter) holding a pulse dot, with the right arm
+         rising past the bowl to imply trace / timeline forward.
+         viewBox 0 0 120 120 -->
+    <symbol id="st-mark" viewBox="0 0 120 120">
+      <path
+        d="M 24 60 Q 24 96 60 96 Q 96 96 96 60 L 96 28"
+        fill="none" stroke="url(#stGrad)" stroke-width="15"
+        stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="56" cy="70" r="11" fill="url(#stGrad)"/>
+    </symbol>
+    <symbol id="st-mark-light" viewBox="0 0 120 120">
+      <path d="M 24 60 Q 24 96 60 96 Q 96 96 96 60 L 96 28"
+        fill="none" stroke="url(#stGradLight)" stroke-width="15"
+        stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="56" cy="70" r="11" fill="url(#stGradLight)"/>
+    </symbol>
+    <symbol id="st-mark-solid" viewBox="0 0 120 120">
+      <path d="M 24 60 Q 24 96 60 96 Q 96 96 96 60 L 96 28"
+        fill="none" stroke="currentColor" stroke-width="15"
+        stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="56" cy="70" r="11" fill="currentColor"/>
+    </symbol>
+
+    <!-- ============== Sub-brand icons (32x32 grid) ============== -->
+    <!-- SafeVault — nested rounded forms holding a center value -->
+    <symbol id="sub-vault" viewBox="0 0 32 32">
+      <rect x="4" y="4" width="24" height="24" rx="8" fill="none" stroke="currentColor" stroke-width="2.2"/>
+      <rect x="10" y="10" width="12" height="12" rx="4" fill="none" stroke="currentColor" stroke-width="2.2"/>
+      <circle cx="16" cy="16" r="2" fill="currentColor"/>
+    </symbol>
+    <!-- SafeConnect — two facing crescents, a bridge dot -->
+    <symbol id="sub-connect" viewBox="0 0 32 32">
+      <path d="M 9 7 C 4 11, 4 21, 9 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M 23 7 C 28 11, 28 21, 23 25" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="16" cy="16" r="2.2" fill="currentColor"/>
+    </symbol>
+    <!-- SafePulse — heartbeat trace -->
+    <symbol id="sub-pulse" viewBox="0 0 32 32">
+      <path d="M 3 16 H 9 L 12 9 L 16 23 L 19 13 L 22 16 H 29" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="29" cy="16" r="2.4" fill="currentColor"/>
+    </symbol>
+    <!-- SafeInsight — concentric arcs (signal / radar) -->
+    <symbol id="sub-insight" viewBox="0 0 32 32">
+      <path d="M 6 22 A 12 12 0 0 1 26 22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M 10 20 A 7 7 0 0 1 22 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="16" cy="20" r="2" fill="currentColor"/>
+    </symbol>
+    <!-- SafeGuard — interlocked seal: two offset rounded shapes -->
+    <symbol id="sub-guard" viewBox="0 0 32 32">
+      <path d="M 6 11 C 6 7, 10 5, 13 5 L 19 5 C 22 5, 26 7, 26 11 L 26 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M 6 21 L 6 21 C 6 25, 10 27, 13 27 L 19 27 C 22 27, 26 25, 26 21" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="16" cy="16" r="3" fill="none" stroke="currentColor" stroke-width="2.2"/>
+      <circle cx="16" cy="16" r="1" fill="currentColor"/>
+    </symbol>
+    <!-- SafeCircle — central node with three orbiting nodes -->
+    <symbol id="sub-circle" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="3" fill="currentColor"/>
+      <circle cx="16" cy="5" r="2.2" fill="none" stroke="currentColor" stroke-width="2"/>
+      <circle cx="6" cy="22" r="2.2" fill="none" stroke="currentColor" stroke-width="2"/>
+      <circle cx="26" cy="22" r="2.2" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M 16 8 L 16 13 M 9 21 L 13.5 17.5 M 23 21 L 18.5 17.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+
+<!-- ======================================================
+     COVER
+====================================================== -->
+<section class="cover" data-screen-label="01 Cover">
+  <div class="page">
+    <div class="cover-top">
+      <span><svg class="mark-icon" width="22" height="22"><use href="#st-mark-light"/></svg>&nbsp;&nbsp;SafeTrace AI · Brand Identity System</span>
+      <span>Document v1.0 · 2026</span>
+    </div>
+
+    <h1>A safe place<br>to <em>be heard.</em></h1>
+    <p class="cover-sub">SafeTrace is an AI companion for people in crisis — documenting experience, organizing evidence, connecting to care, and watching the streets in real time. This document defines how that promise looks, sounds, and feels.</p>
+
+    <div class="cover-meta">
+      <div>System</div>
+      <div>Audience</div>
+      <div>Tone</div>
+      <div>Status</div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div><b>Brand identity v1.0</b></div>
+      <div><b>Survivors · clinicians · partners</b></div>
+      <div><b>Calm, protective, human</b></div>
+      <div><b>Approved for rollout</b></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     ESSENCE
+====================================================== -->
+<section class="band essence" data-screen-label="02 Essence">
+  <div class="page">
+    <div class="band-head">
+      <div class="band-tag"><span class="num">00</span>Brand essence</div>
+      <div>
+        <h2 class="essence-quote">A calm ocean at twilight — <em>deep, steady, protective,</em> but warm.</h2>
+        <p class="band-lede">SafeTrace exists for the most vulnerable moments in a person's life. The brand must hold both clinical authority and human softness in the same frame. We design for someone whose hands are still shaking.</p>
+      </div>
+    </div>
+
+    <div class="essence-grid">
+      <div class="essence-card">
+        <div class="mono">Purpose</div>
+        <h3>Hold the weight, so they don't have to.</h3>
+        <p>Documentation, evidence, timeline, and access to care — quietly carried in the background while the person catches their breath.</p>
+      </div>
+      <div class="essence-card">
+        <div class="mono">Posture</div>
+        <h3>Trusted, never towering.</h3>
+        <p>The visual system reads as institutional-grade without ever feeling like an institution. Authority is in the craft, not in volume.</p>
+      </div>
+      <div class="essence-card">
+        <div class="mono">Promise</div>
+        <h3>Control stays with the person.</h3>
+        <p>Nothing is shared, escalated, or surfaced without consent. The brand makes this visible at every touchpoint.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     LOGO SYSTEM
+====================================================== -->
+<section class="band logo-system" data-screen-label="03 Logo system">
+  <div class="page">
+    <div class="band-head">
+      <div class="band-tag"><span class="num">01</span>The mark</div>
+      <div>
+        <h2 class="band-title">A shelter, a trace, a presence — held in one stroke.</h2>
+        <p class="band-lede">The SafeTrace mark is built from a single fluid curve. A cradle wraps the user from below; the right arm lifts past the bowl, suggesting a path forward; a filled pulse marks where the person is, now. It is deliberately not a shield, not a lock, not a target.</p>
+      </div>
+    </div>
+
+    <!-- Anatomy -->
+    <div class="logo-anatomy">
+      <div class="anatomy-stage">
+        <svg viewBox="0 0 120 120" width="100%" style="overflow:visible">
+          <!-- Construction guides -->
+          <g opacity="0.18" stroke="#16384A" stroke-width="0.4" fill="none">
+            <line x1="0" y1="60" x2="120" y2="60" stroke-dasharray="2 2"/>
+            <line x1="60" y1="0" x2="60" y2="120" stroke-dasharray="2 2"/>
+            <circle cx="60" cy="78" r="36"/>
+          </g>
+          <path d="M 24 60 Q 24 96 60 96 Q 96 96 96 60 L 96 28"
+            fill="none" stroke="url(#stGrad)" stroke-width="15"
+            stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="56" cy="70" r="11" fill="url(#stGrad)"/>
+          <!-- callout dots -->
+          <g fill="#B85A4A">
+            <circle cx="24" cy="60" r="1.8"/>
+            <circle cx="96" cy="28" r="1.8"/>
+            <circle cx="56" cy="70" r="1.8"/>
+          </g>
+        </svg>
+      </div>
+      <ol class="anatomy-labels">
+        <li>
+          <span class="ix">1</span>
+          <div>
+            <h4>The cradle</h4>
+            <p>A wide, soft U-form built from one continuous stroke with rounded terminations. Reads as shelter, embrace, or held space.</p>
+          </div>
+        </li>
+        <li>
+          <span class="ix">2</span>
+          <div>
+            <h4>The trace</h4>
+            <p>The right arm rises 32 units past the bowl, suggesting a path or timeline moving forward — never finished, always continuing.</p>
+          </div>
+        </li>
+        <li>
+          <span class="ix">3</span>
+          <div>
+            <h4>The pulse</h4>
+            <p>A filled circle sits inside the cradle, slightly left of center. It anchors the person — present, accounted for, alive.</p>
+          </div>
+        </li>
+        <li>
+          <span class="ix">4</span>
+          <div>
+            <h4>The gradient</h4>
+            <p>A subtle twilight wash from Tidewater into Midnight Indigo. Never flat, never harsh. Mono fallbacks exist for embroidery, fax, and 1-bit displays.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <!-- Lockups -->
+    <div class="lockup-grid">
+
+      <div class="lockup-card bg-paper col-7">
+        <span class="caption">Horizontal lockup · primary</span>
+        <div class="lockup-h">
+          <svg class="mark-icon" width="84" height="84"><use href="#st-mark"/></svg>
+          <span class="wordmark" style="font-size:72px;color:var(--st-midnight)">Safe<em>Trace</em></span>
+        </div>
+      </div>
+
+      <div class="lockup-card bg-paper col-5">
+        <span class="caption">Stacked lockup</span>
+        <div class="lockup-v">
+          <svg class="mark-icon" width="96" height="96"><use href="#st-mark"/></svg>
+          <span class="wordmark" style="font-size:44px;color:var(--st-midnight);margin-top:6px">Safe<em>Trace</em></span>
+        </div>
+      </div>
+
+      <div class="lockup-card bg-dark col-5">
+        <span class="caption">Reversed · dark</span>
+        <div class="lockup-h">
+          <svg class="mark-icon" width="72" height="72"><use href="#st-mark-light"/></svg>
+          <span class="wordmark" style="font-size:58px;color:var(--st-paper)">Safe<em style="color:var(--st-aurora)">Trace</em></span>
+        </div>
+      </div>
+
+      <div class="lockup-card bg-teal col-4">
+        <span class="caption">Mono on teal</span>
+        <div class="lockup-v" style="color:var(--st-paper)">
+          <svg class="mark-icon" width="80" height="80" style="color:var(--st-paper)"><use href="#st-mark-solid"/></svg>
+          <span class="wordmark" style="font-size:36px;color:var(--st-paper);margin-top:4px">SafeTrace</span>
+        </div>
+      </div>
+
+      <div class="lockup-card bg-paper col-3" style="background:var(--st-paper-2)">
+        <span class="caption">Icon mark only</span>
+        <svg class="mark-icon" width="120" height="120"><use href="#st-mark"/></svg>
+      </div>
+    </div>
+
+    <!-- Rules: clear space + min size -->
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="mono-tag">Clear space</div>
+        <h3>One “x” on every side.</h3>
+        <p style="color:var(--st-graphite);font-size:14px;margin-top:6px">No type, image, or hard edge enters the box defined by one cradle-width on every side of the mark.</p>
+        <div class="stage clear-space-diagram">
+          <svg viewBox="0 0 360 200" width="100%" style="overflow:visible">
+            <!-- clear space box -->
+            <rect x="60" y="30" width="240" height="140" fill="none" stroke="#2B7A8C" stroke-width="1" stroke-dasharray="4 4" rx="6"/>
+            <!-- x markers -->
+            <g font-family="JetBrains Mono" font-size="10" fill="#2B7A8C">
+              <text x="38" y="103" text-anchor="middle">x</text>
+              <text x="322" y="103" text-anchor="middle">x</text>
+              <text x="180" y="20" text-anchor="middle">x</text>
+              <text x="180" y="190" text-anchor="middle">x</text>
+            </g>
+            <!-- the lockup, centered -->
+            <g transform="translate(110, 75)">
+              <svg width="50" height="50" x="0" y="0"><use href="#st-mark"/></svg>
+              <text x="62" y="40" font-family="Bricolage Grotesque" font-weight="500" font-size="38" fill="#0B1733" letter-spacing="-1.2">Safe<tspan fill="#2B7A8C">Trace</tspan></text>
+            </g>
+            <!-- arrows -->
+            <g stroke="#B8BFCB" stroke-width="0.8" fill="none">
+              <line x1="48" y1="55" x2="48" y2="40"/>
+              <line x1="48" y1="167" x2="48" y2="150"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="mono-tag">Minimum sizes</div>
+        <h3>Below 16 px, drop the wordmark.</h3>
+        <p style="color:var(--st-graphite);font-size:14px;margin-top:6px">The cradle stays legible at 16 px. The wordmark requires 96 px minimum width to keep counters open.</p>
+        <div class="stage">
+          <div class="size-row">
+            <figure>
+              <svg width="96" height="96"><use href="#st-mark"/></svg>
+              <figcaption>96 px · display</figcaption>
+            </figure>
+            <figure>
+              <svg width="48" height="48"><use href="#st-mark"/></svg>
+              <figcaption>48 px · UI</figcaption>
+            </figure>
+            <figure>
+              <svg width="24" height="24"><use href="#st-mark"/></svg>
+              <figcaption>24 px · favicon</figcaption>
+            </figure>
+            <figure>
+              <svg width="16" height="16"><use href="#st-mark"/></svg>
+              <figcaption>16 px · min</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ======================================================
+     COLOR
+====================================================== -->
+<section class="band color" data-screen-label="04 Color">
+  <div class="page">
+    <div class="band-head">
+      <div class="band-tag"><span class="num">02</span>Color palette</div>
+      <div>
+        <h2 class="band-title">Twilight blues, with quiet warmth around them.</h2>
+        <p class="band-lede">Anchored on deep teal and midnight indigo, the palette pairs institutional depth with soft, human accents. Every color was selected to feel calm in combination — no color in this system fights another.</p>
+      </div>
+    </div>
+
+    <!-- Primary anchors -->
+    <div style="font-family:var(--st-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--st-slate);margin-bottom:14px">— Primary anchors</div>
+    <div class="swatch-primary-grid">
+      <div class="swatch is-dark" style="background:#0B1733">
+        <div>
+          <div class="role">Primary · 01</div>
+          <div class="name">Midnight Indigo</div>
+        </div>
+        <div class="codes">
+          <span>HEX&nbsp;&nbsp;#0B1733</span>
+          <span>RGB&nbsp;&nbsp;11 · 23 · 51</span>
+          <span>USE&nbsp;&nbsp;Dark surfaces, anchor</span>
+        </div>
+      </div>
+      <div class="swatch is-dark" style="background:#16384A">
+        <div>
+          <div class="role">Primary · 02</div>
+          <div class="name">Twilight Teal</div>
+        </div>
+        <div class="codes">
+          <span>HEX&nbsp;&nbsp;#16384A</span>
+          <span>RGB&nbsp;&nbsp;22 · 56 · 74</span>
+          <span>USE&nbsp;&nbsp;Brand voice, primary type</span>
+        </div>
+      </div>
+      <div class="swatch is-dark" style="background:#2B7A8C">
+        <div>
+          <div class="role">Primary · 03</div>
+          <div class="name">Tidewater</div>
+        </div>
+        <div class="codes">
+          <span>HEX&nbsp;&nbsp;#2B7A8C</span>
+          <span>RGB&nbsp;&nbsp;43 · 122 · 140</span>
+          <span>USE&nbsp;&nbsp;Interactive, links, focus</span>
+        </div>
+      </div>
+      <div class="swatch is-light" style="background:#7FB7C2">
+        <div>
+          <div class="role">Primary · 04</div>
+          <div class="name">Aurora</div>
+        </div>
+        <div class="codes">
+          <span>HEX&nbsp;&nbsp;#7FB7C2</span>
+          <span>RGB&nbsp;&nbsp;127 · 183 · 194</span>
+          <span>USE&nbsp;&nbsp;Highlights on dark</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary + neutrals -->
+    <div style="font-family:var(--st-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--st-slate);margin:64px 0 14px">— Wellness, safety & alert</div>
+    <div class="secondary-grid">
+      <div class="swatch is-light" style="background:#B7A8DC">
+        <div>
+          <div class="role">Wellness</div>
+          <div class="name">Lavender Mist</div>
+        </div>
+        <div class="codes">
+          <span>HEX&nbsp;&nbsp;#B7A8DC</span>
+          <span>RGB&nbsp;&nbsp;183 · 168 · 220</span>
+          <span>USE&nbsp;&nbsp;Therapy, emotional support</span>
+        </div>
+      </div>
+      <div class="swatch is-light" style="background:#94B79E">
+        <div>
+          <div class="role">Safety · positive</div>
+          <div class="name">Sage</div>
+        </div>
+        <div class="codes">
+          <span>HEX&nbsp;&nbsp;#94B79E</span>
+          <span>RGB&nbsp;&nbsp;148 · 183 · 158</span>
+          <span>USE&nbsp;&nbsp;All-clear, confirm, community</span>
+        </div>
+      </div>
+      <div class="swatch is-light" style="background:#E08A7A">
+        <div>
+          <div class="role">Urgent · alert</div>
+          <div class="name">Muted Coral</div>
+        </div>
+        <div class="codes">
+          <span>HEX&nbsp;&nbsp;#E08A7A</span>
+          <span>RGB&nbsp;&nbsp;224 · 138 · 122</span>
+          <span>USE&nbsp;&nbsp;Sparingly — live alerts only</span>
+        </div>
+      </div>
+      <div class="swatch is-light" style="background:#F5EFE4;border:1px solid color-mix(in oklab, #0B1733 8%, transparent)">
+        <div>
+          <div class="role">Background · warm</div>
+          <div class="name">Warm Paper</div>
+        </div>
+        <div class="codes">
+          <span>HEX&nbsp;&nbsp;#F5EFE4</span>
+          <span>RGB&nbsp;&nbsp;245 · 239 · 228</span>
+          <span>USE&nbsp;&nbsp;Primary light surface</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usage rules -->
+    <div class="usage-grid">
+      <div class="usage-card">
+        <div class="head">
+          <span class="chip" style="background:#16384A"></span>
+          <h4>The 70 / 25 / 5 rule</h4>
+        </div>
+        <p>Use deep anchors (Midnight, Twilight, Paper) for ~70% of any composition. Tidewater/Aurora/Sage/Lavender share 25%. Coral never exceeds 5% — and only signals live urgency.</p>
+        <div class="dos">
+          <div class="do">✓ Calm dominance</div>
+          <div class="dont">✗ Rainbow dashboards</div>
+        </div>
+      </div>
+      <div class="usage-card">
+        <div class="head">
+          <span class="chip" style="background:#E08A7A"></span>
+          <h4>Coral is a promise, not a color</h4>
+        </div>
+        <p>Coral marks a live alert, an unverified incident, or a moment that needs the user's attention. It does not decorate. Pairing it with another saturated hue dilutes the signal.</p>
+        <div class="dos">
+          <div class="do">✓ Single chip, single moment</div>
+          <div class="dont">✗ Coral CTAs everywhere</div>
+        </div>
+      </div>
+      <div class="usage-card">
+        <div class="head">
+          <span class="chip" style="background:#B7A8DC"></span>
+          <h4>Lavender holds emotion</h4>
+        </div>
+        <p>Reserve Lavender Mist for emotional-support and therapist surfaces (SafeConnect). It signals a softer modality and should never be used for billing, settings, or transactional UI.</p>
+        <div class="dos">
+          <div class="do">✓ Therapy, journal, reflection</div>
+          <div class="dont">✗ Buttons, errors, charts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     TYPOGRAPHY
+====================================================== -->
+<section class="band type" data-screen-label="05 Typography">
+  <div class="page">
+    <div class="band-head">
+      <div class="band-tag"><span class="num">03</span>Typography</div>
+      <div>
+        <h2 class="band-title">A confident voice, set in a soft hand.</h2>
+        <p class="band-lede">Three typefaces, no exceptions. A rounded display face that feels warm at scale, a humanist sans for everything the user reads, and a precise mono reserved for timestamps, evidence IDs, and any moment where accuracy matters.</p>
+      </div>
+    </div>
+
+    <div class="type-stack">
+
+      <div class="type-card type-display" style="grid-column: span 12">
+        <div class="meta">
+          <span>Display · Bricolage Grotesque</span>
+          <span>Variable · 12–96 opsz · 300–700</span>
+        </div>
+        <div class="specimen">Held, not&nbsp;hurried.</div>
+        <div class="rationale">
+          <div>
+            <h5>Why this face</h5>
+            <p>Bricolage is geometric without being clinical — its rounded apertures and humanist proportions read as confident in headlines and tender at large sizes. The variable opsz axis lets the same family hold both billboard authority and editorial intimacy.</p>
+          </div>
+          <div>
+            <h5>Use for</h5>
+            <p>Headlines, marketing hero, large numerical displays, section openers, the wordmark. Tracking: −2.5% at display sizes, −1.5% at H3 and below. Weight: 500 default; 400 italic for accent words.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="type-card type-text" style="grid-column: span 7">
+        <div class="meta">
+          <span>Text · Geist</span>
+          <span>Sans · 300–700</span>
+        </div>
+        <div class="specimen" style="font-size:88px">Read me<br>slowly.</div>
+        <div class="rationale">
+          <div>
+            <h5>Why this face</h5>
+            <p>Geist's even rhythm and open counters keep dense product copy legible at 14–16 px. It carries warmth that institutional sans-serifs (Inter, Helvetica) lack.</p>
+          </div>
+          <div>
+            <h5>Use for</h5>
+            <p>Body copy, navigation, form labels, lists, transcripts, in-product UI. Default 16/24, weight 400. Buttons 14/20 weight 500.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="type-card type-mono" style="grid-column: span 5">
+        <div class="meta">
+          <span>Data · JetBrains Mono</span>
+          <span>Mono · 400–600</span>
+        </div>
+        <div class="specimen" style="font-size:54px;line-height:1.05">22:41:08<br>EVD-0418</div>
+        <div class="rationale">
+          <div>
+            <h5>Why this face</h5>
+            <p>Aligned figures, distinguishable 0/O, l/1. Conveys "this is the record" without feeling like a terminal.</p>
+          </div>
+          <div>
+            <h5>Use for</h5>
+            <p>Timestamps, evidence IDs, hashes, eyebrows, technical metadata. Always lowercase except for IDs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Type scale -->
+    <div class="scale-grid">
+      <div style="font-family:var(--st-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--st-slate);margin-bottom:18px">— Type scale &amp; hierarchy</div>
+
+      <div class="scale-row">
+        <div class="label">Display / D1</div>
+        <div class="sample" style="font-size:88px;font-weight:500">A safe place to be heard.</div>
+        <div class="spec">88 / 92<br>Bricolage 500</div>
+      </div>
+      <div class="scale-row">
+        <div class="label">Headline / H1</div>
+        <div class="sample" style="font-size:56px">Document an incident.</div>
+        <div class="spec">56 / 60<br>Bricolage 500</div>
+      </div>
+      <div class="scale-row">
+        <div class="label">Headline / H2</div>
+        <div class="sample" style="font-size:36px">Your timeline, organized.</div>
+        <div class="spec">36 / 42<br>Bricolage 500</div>
+      </div>
+      <div class="scale-row">
+        <div class="label">Subhead / H3</div>
+        <div class="sample" style="font-size:22px;font-family:var(--st-display)">Speak freely. We'll keep notes.</div>
+        <div class="spec">22 / 28<br>Bricolage 500</div>
+      </div>
+      <div class="scale-row">
+        <div class="label">Body / Large</div>
+        <div class="sample" style="font-size:19px;font-family:var(--st-text);font-weight:400;color:var(--st-graphite)">Tell us what happened in your own words. SafeTrace listens, organizes, and keeps a private record only you can release.</div>
+        <div class="spec">19 / 28<br>Geist 400</div>
+      </div>
+      <div class="scale-row">
+        <div class="label">Body / Default</div>
+        <div class="sample" style="font-size:16px;font-family:var(--st-text);font-weight:400;color:var(--st-graphite)">Default reading size across the product. Generous line-height keeps long entries restful.</div>
+        <div class="spec">16 / 24<br>Geist 400</div>
+      </div>
+      <div class="scale-row">
+        <div class="label">Caption / Mono</div>
+        <div class="sample" style="font-size:13px;font-family:var(--st-mono);color:var(--st-tidewater);letter-spacing:0.04em">EVD–0418 · 22:41:08 UTC · sha256:a7f1…</div>
+        <div class="spec">13 / 18<br>JetBrains 500</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     SUB-BRAND PRODUCT SUITE
+====================================================== -->
+<section class="band subbrands" data-screen-label="06 Sub-brands">
+  <div class="page">
+    <div class="band-head">
+      <div class="band-tag"><span class="num">04</span>Product suite</div>
+      <div>
+        <h2 class="band-title">Six layers of one promise.</h2>
+        <p class="band-lede">Each product carries the parent mark and "Safe—" prefix, with its own accent color drawn from the palette and a single glyph drawn from the same geometric vocabulary. Together they should feel like rooms in one home.</p>
+      </div>
+    </div>
+
+    <div class="sub-grid">
+
+      <!-- SafeVault -->
+      <div class="sub-card" style="--accent:#0B1733">
+        <div class="icon" style="background:color-mix(in oklab, #0B1733 12%, var(--st-paper-2)); color:#0B1733">
+          <svg width="40" height="40"><use href="#sub-vault"/></svg>
+        </div>
+        <div>
+          <h3>Safe<span class="lite">Vault</span></h3>
+          <p style="margin-top:8px">End-to-end encrypted storage for documentation, evidence, and personal records. The user holds the only key.</p>
+        </div>
+        <div class="meta">
+          <span><span class="dot" style="background:#0B1733"></span>Midnight Indigo</span>
+          <span>Privacy &amp; data</span>
+        </div>
+      </div>
+
+      <!-- SafeConnect -->
+      <div class="sub-card" style="--accent:#6E5FA1">
+        <div class="icon" style="background:color-mix(in oklab, #B7A8DC 32%, var(--st-paper-2)); color:#6E5FA1">
+          <svg width="40" height="40"><use href="#sub-connect"/></svg>
+        </div>
+        <div>
+          <h3>Safe<span class="lite">Connect</span></h3>
+          <p style="margin-top:8px">A vetted bridge to licensed therapists, counselors, and crisis advocates — booked on the user's terms, paid through their plan or ours.</p>
+        </div>
+        <div class="meta">
+          <span><span class="dot" style="background:#B7A8DC"></span>Lavender Mist</span>
+          <span>Wellness &amp; care</span>
+        </div>
+      </div>
+
+      <!-- SafePulse -->
+      <div class="sub-card" style="--accent:#B85A4A">
+        <div class="icon" style="background:color-mix(in oklab, #E08A7A 30%, var(--st-paper-2)); color:#B85A4A">
+          <svg width="40" height="40"><use href="#sub-pulse"/></svg>
+        </div>
+        <div>
+          <h3>Safe<span class="lite">Pulse</span></h3>
+          <p style="margin-top:8px">A community safety signal — verified, geofenced, opt-in. Real-time alerts about incidents within a chosen radius, written in human language.</p>
+        </div>
+        <div class="meta">
+          <span><span class="dot" style="background:#E08A7A"></span>Muted Coral</span>
+          <span>Live alerts</span>
+        </div>
+      </div>
+
+      <!-- SafeInsight -->
+      <div class="sub-card" style="--accent:#2B7A8C">
+        <div class="icon" style="background:color-mix(in oklab, #7FB7C2 40%, var(--st-paper-2)); color:#2B7A8C">
+          <svg width="40" height="40"><use href="#sub-insight"/></svg>
+        </div>
+        <div>
+          <h3>Safe<span class="lite">Insight</span></h3>
+          <p style="margin-top:8px">Anonymized pattern intelligence for cities, advocates, and policy teams. Surfaces emerging risks without ever surfacing the individual.</p>
+        </div>
+        <div class="meta">
+          <span><span class="dot" style="background:#2B7A8C"></span>Tidewater</span>
+          <span>Policy &amp; analytics</span>
+        </div>
+      </div>
+
+      <!-- SafeGuard -->
+      <div class="sub-card" style="--accent:#16384A">
+        <div class="icon" style="background:color-mix(in oklab, #16384A 14%, var(--st-paper-2)); color:#16384A">
+          <svg width="40" height="40"><use href="#sub-guard"/></svg>
+        </div>
+        <div>
+          <h3>Safe<span class="lite">Guard</span></h3>
+          <p style="margin-top:8px">Tamper-evident evidence chain. Every entry is hashed, timestamped, and witnessed — admissible if the user decides to release it.</p>
+        </div>
+        <div class="meta">
+          <span><span class="dot" style="background:#16384A"></span>Twilight Teal</span>
+          <span>Evidence integrity</span>
+        </div>
+      </div>
+
+      <!-- SafeCircle -->
+      <div class="sub-card" style="--accent:#4F7659">
+        <div class="icon" style="background:color-mix(in oklab, #94B79E 36%, var(--st-paper-2)); color:#4F7659">
+          <svg width="40" height="40"><use href="#sub-circle"/></svg>
+        </div>
+        <div>
+          <h3>Safe<span class="lite">Circle</span></h3>
+          <p style="margin-top:8px">Moderated peer support — small circles of survivors, advocates, and chosen contacts. Designed for company, not crowds.</p>
+        </div>
+        <div class="meta">
+          <span><span class="dot" style="background:#94B79E"></span>Sage</span>
+          <span>Peer community</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     VOICE
+====================================================== -->
+<section class="band voice" data-screen-label="07 Voice">
+  <div class="page">
+    <div class="band-head">
+      <div class="band-tag"><span class="num">05</span>Brand voice</div>
+      <div>
+        <h2 class="band-title">Four ways we choose our words.</h2>
+        <p class="band-lede">SafeTrace speaks like a person who has done this before — and who has time. Never hurried. Never patronizing. Never asking for trust it hasn't earned.</p>
+      </div>
+    </div>
+
+    <div class="voice-grid">
+
+      <div class="voice-pillar">
+        <div class="index">01 — Pillar</div>
+        <h3>Empathetic, <em>never patronizing.</em></h3>
+        <p>We meet people where they are. We don't soften reality, but we don't volunteer pain either. Plain language, no euphemisms, no "we understand how you feel."</p>
+        <div class="examples">
+          <div class="yes">
+            <h6>Say</h6>
+            <p>"Take your time. We'll wait."</p>
+          </div>
+          <div class="no">
+            <h6>Don't say</h6>
+            <p>"It's going to be okay, sweetie."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="voice-pillar">
+        <div class="index">02 — Pillar</div>
+        <h3>Clear, <em>never cold.</em></h3>
+        <p>Short sentences. Concrete nouns. We name what is happening. But we also leave room — a single line break can carry care.</p>
+        <div class="examples">
+          <div class="yes">
+            <h6>Say</h6>
+            <p>"Your record is saved. Only you can share it."</p>
+          </div>
+          <div class="no">
+            <h6>Don't say</h6>
+            <p>"Submission processed successfully (ID #4821)."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="voice-pillar">
+        <div class="index">03 — Pillar</div>
+        <h3>Protective, <em>never controlling.</em></h3>
+        <p>We default to private, encrypted, and reversible. We name the risk before we ask. The user can always undo, redact, or walk away.</p>
+        <div class="examples">
+          <div class="yes">
+            <h6>Say</h6>
+            <p>"This will share your timeline with your attorney. You can revoke access any time."</p>
+          </div>
+          <div class="no">
+            <h6>Don't say</h6>
+            <p>"For your safety, we've shared this with our partners."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="voice-pillar">
+        <div class="index">04 — Pillar</div>
+        <h3>Empowering, <em>always.</em></h3>
+        <p>Control stays with the user — in copy and in code. We surface options, not directives. We name what the user is in charge of, every step.</p>
+        <div class="examples">
+          <div class="yes">
+            <h6>Say</h6>
+            <p>"You decide who sees this, and when."</p>
+          </div>
+          <div class="no">
+            <h6>Don't say</h6>
+            <p>"Let us handle the next steps."</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     VISUAL STYLE
+====================================================== -->
+<section class="band style-section" data-screen-label="08 Visual style">
+  <div class="page">
+    <div class="band-head">
+      <div class="band-tag"><span class="num">06</span>Visual style</div>
+      <div>
+        <h2 class="band-title">Generous, rounded, quietly luminous.</h2>
+        <p class="band-lede">Six principles guide every composition — from the smallest in-product card to the largest billboard. If a layout cannot satisfy these, it goes back.</p>
+      </div>
+    </div>
+
+    <div class="style-grid">
+
+      <div class="principle-card" style="grid-column: span 4">
+        <div class="mono-tag">01 — Space</div>
+        <h4>Breathing room is the brand.</h4>
+        <p>Minimum 48 px gutters at marketing scale, 24 px in-product. Whitespace is not "empty" — it is the user catching their breath. Density signals an institution; air signals a person.</p>
+        <div class="demo">
+          <div style="display:flex;gap:8px">
+            <div style="width:14px;height:48px;background:var(--st-twilight);border-radius:8px"></div>
+            <div style="width:48px;height:48px;background:var(--st-paper-2);border:1px dashed var(--st-tidewater);border-radius:8px"></div>
+            <div style="width:14px;height:48px;background:var(--st-twilight);border-radius:8px"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="principle-card" style="grid-column: span 4">
+        <div class="mono-tag">02 — Form</div>
+        <h4>Soft geometry over hard edges.</h4>
+        <p>Border radius is non-negotiable: 14 px UI, 22 px cards, 28 px hero containers. Sharp 90° corners read as legal paperwork; we are not legal paperwork.</p>
+        <div class="demo">
+          <div style="display:flex;gap:12px">
+            <div style="width:48px;height:48px;background:var(--st-twilight);border-radius:14px"></div>
+            <div style="width:64px;height:48px;background:var(--st-tidewater);border-radius:22px"></div>
+            <div style="width:80px;height:48px;background:var(--st-lavender);border-radius:28px"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="principle-card" style="grid-column: span 4">
+        <div class="mono-tag">03 — Light</div>
+        <h4>Subtle gradients, never flat blocks.</h4>
+        <p>Surfaces glow softly from one anchor color toward an adjacent one — never spanning the full palette. Think dusk on water: 8–14% lightness shift, single direction.</p>
+        <div class="demo">
+          <div style="width:160px;height:80px;border-radius:18px;background:linear-gradient(150deg,#1d4d61,#0b1733)"></div>
+        </div>
+      </div>
+
+      <div class="principle-card" style="grid-column: span 6">
+        <div class="mono-tag">04 — Imagery</div>
+        <h4>Photography reads as memory, not stock.</h4>
+        <p>People half-turned. Hands at rest. Windows from inside. We never show faces in distress. Color grade pulls greens toward sage and shadows toward indigo. No clichéd "woman with phone" stock; commission real moments or omit.</p>
+        <div class="demo" style="background:linear-gradient(165deg,#16384a 0%,#0b1733 70%);display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:14px">
+          <div style="aspect-ratio:1;background:linear-gradient(135deg,#2B7A8C,#16384A);border-radius:8px"></div>
+          <div style="aspect-ratio:1;background:linear-gradient(135deg,#7FB7C2,#16384A);border-radius:8px"></div>
+          <div style="aspect-ratio:1;background:linear-gradient(135deg,#B7A8DC,#16384A);border-radius:8px"></div>
+        </div>
+      </div>
+
+      <div class="principle-card" style="grid-column: span 6">
+        <div class="mono-tag">05 — Motion</div>
+        <h4>Slow, exhaled, never alarming.</h4>
+        <p>Default ease: cubic-bezier(.2, .9, .25, 1). Durations 320–480 ms — long enough to feel deliberate. Pulses on safety states use a 2 s breath cycle. Nothing flashes. Nothing jumps. Nothing demands.</p>
+        <div class="demo" style="overflow:hidden">
+          <svg width="220" height="60" viewBox="0 0 220 60">
+            <path d="M 10 30 Q 60 10 110 30 T 210 30" fill="none" stroke="url(#stGrad)" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="110" cy="30" r="6" fill="#2B7A8C">
+              <animate attributeName="r" values="5;9;5" dur="2.4s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+      </div>
+
+      <div class="principle-card" style="grid-column: span 12">
+        <div class="mono-tag">06 — Hierarchy of attention</div>
+        <h4>Calm by default. Coral for one moment, then gone.</h4>
+        <p>The screen sleeps in deep neutrals. Tidewater speaks for the product. Lavender or Sage colors a single chip when a soft state is named. Coral appears only when something is actually happening, and only for as long as it is — never as decoration, never as a wash.</p>
+        <div class="demo" style="background:var(--st-paper);padding:0;min-height:0">
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:10px;padding:18px;width:100%">
+            <div style="height:44px;border-radius:10px;background:#0B1733"></div>
+            <div style="height:44px;border-radius:10px;background:#16384A"></div>
+            <div style="height:44px;border-radius:10px;background:#2B7A8C"></div>
+            <div style="height:44px;border-radius:10px;background:#7FB7C2"></div>
+            <div style="height:44px;border-radius:10px;background:#B7A8DC"></div>
+            <div style="height:44px;border-radius:10px;background:#94B79E"></div>
+            <div style="height:44px;border-radius:10px;background:#E08A7A"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     APPLICATIONS
+====================================================== -->
+<section class="band apps" data-screen-label="09 Applications">
+  <div class="page">
+    <div class="band-head">
+      <div class="band-tag"><span class="num">07</span>In the world</div>
+      <div>
+        <h2 class="band-title">How the system shows up.</h2>
+        <p class="band-lede">A few representative applications — app icon, business card, and an in-product surface — to show how the parts compose. The system should feel inevitable in every form.</p>
+      </div>
+    </div>
+
+    <div class="apps-grid">
+
+      <!-- App icon -->
+      <div class="app-card" style="grid-column: span 4;display:flex;flex-direction:column;gap:24px">
+        <div class="label">— App icon · iOS</div>
+        <div class="app-icon">
+          <svg width="64%" height="64%" viewBox="0 0 120 120" style="position:relative;z-index:2;color:var(--st-paper)">
+            <use href="#st-mark-light"/>
+          </svg>
+        </div>
+        <div style="font-family:var(--st-mono);font-size:11px;color:var(--st-slate);letter-spacing:0.08em">1024 × 1024 · twilight gradient<br>safe area: 80% centered</div>
+      </div>
+
+      <!-- Business card -->
+      <div class="app-card" style="grid-column: span 5">
+        <div class="label">— Business card · front</div>
+        <div class="card-mock">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <svg width="42" height="42"><use href="#st-mark"/></svg>
+            <span class="small">SafeTrace AI · 2026</span>
+          </div>
+          <div>
+            <div class="name">Dr. Imani Lowell</div>
+            <div style="font-family:var(--st-text);font-size:13px;color:var(--st-graphite);margin-top:2px">Head of Survivor Advocacy</div>
+            <div class="small" style="margin-top:18px"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ec85818d8285ac9f8d8a89989e8d8f89c28d85">[email&#160;protected]</a> · +1 415 555 0142<br>safetrace.ai · brooklyn · ny</div>
+          </div>
+        </div>
+        <div class="label" style="margin-top:18px">— Business card · back</div>
+        <div class="card-mock" style="background:linear-gradient(160deg,#1d4d61,#0b1733);color:var(--st-paper)">
+          <span class="small" style="color:color-mix(in oklab, var(--st-paper) 60%, transparent)">— A safe place</span>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between">
+            <div class="name" style="color:var(--st-paper);font-size:28px">Safe<span style="color:var(--st-aurora)">Trace</span></div>
+            <svg width="44" height="44"><use href="#st-mark-light"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- In-product surface mock -->
+      <div class="app-card" style="grid-column: span 3;background:#0B1733;color:var(--st-paper);border-color:transparent">
+        <div class="label" style="color:color-mix(in oklab, var(--st-paper) 60%, transparent)">— Product surface</div>
+        <div style="background:#16384A;border-radius:18px;padding:22px;margin-top:8px">
+          <div style="display:flex;align-items:center;gap:10px;color:var(--st-aurora);font-family:var(--st-mono);font-size:10px;letter-spacing:0.16em;text-transform:uppercase">
+            <svg width="16" height="16" style="color:var(--st-aurora)"><use href="#st-mark-solid"/></svg>
+            Listening
+          </div>
+          <div style="font-family:var(--st-display);font-size:24px;line-height:1.1;margin-top:14px;letter-spacing:-0.02em;color:var(--st-paper)">Take your time.<br>I'm here.</div>
+          <div style="font-family:var(--st-mono);font-size:10px;color:color-mix(in oklab, var(--st-paper) 55%, transparent);margin-top:18px;letter-spacing:0.06em">22:41:08 · session encrypted · only you</div>
+        </div>
+        <div style="margin-top:18px;display:flex;flex-direction:column;gap:8px">
+          <div style="background:color-mix(in oklab, var(--st-paper) 6%, transparent);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-size:13px">
+            <span style="display:flex;align-items:center;gap:10px"><span style="width:8px;height:8px;border-radius:50%;background:var(--st-sage)"></span>Saved to vault</span>
+            <span style="font-family:var(--st-mono);font-size:10px;color:color-mix(in oklab, var(--st-paper) 55%, transparent)">EVD-0418</span>
+          </div>
+          <div style="background:color-mix(in oklab, var(--st-coral) 16%, transparent);border:1px solid color-mix(in oklab, var(--st-coral) 30%, transparent);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--st-coral)">
+            <span style="display:flex;align-items:center;gap:10px"><span style="width:8px;height:8px;border-radius:50%;background:var(--st-coral);box-shadow:0 0 0 4px color-mix(in oklab,var(--st-coral) 28%, transparent)"></span>Nearby pulse</span>
+            <span style="font-family:var(--st-mono);font-size:10px">0.4 mi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+<footer class="footer">
+  <div class="page">
+    <div class="footer-mark">
+      <svg width="32" height="32"><use href="#st-mark-light"/></svg>
+      <span class="wordmark" style="font-size:24px">Safe<em style="color:var(--st-aurora)">Trace</em></span>
+    </div>
+    <div class="mono">Brand identity system · v1.0 · 2026<br>safetrace.ai · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7a18081b141e3a091b1c1f0e081b191f541b13">[email&#160;protected]</a></div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

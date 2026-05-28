@@ -1,0 +1,294 @@
+/* SafeTrace AI — Prototype styles (animations + base) */
+@import url('brand-tokens.css');
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #1a1d24;
+  font-family: var(--st-text), -apple-system, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: var(--st-ink);
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(80% 60% at 50% 20%, #2a3140 0%, #14171d 70%, #0a0d12 100%);
+}
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; padding: 0; color: inherit; }
+input, textarea { font-family: inherit; color: inherit; }
+
+/* ---------- Keyframe animations ---------- */
+@keyframes pulse-ring {
+  0%   { transform: scale(0.6); opacity: 0.55; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+
+@keyframes pulse-ring-slow {
+  0%   { transform: scale(0.85); opacity: 0.35; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+@keyframes splash-logo-in {
+  0%   { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-down {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes backdrop-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.55; transform: scale(1.18); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.7; }
+  50%      { opacity: 1; }
+}
+
+@keyframes logo-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.04); }
+}
+
+@keyframes draw-check {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes record-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
+@keyframes sonar-ping {
+  0%   { transform: scale(0.2); opacity: 0.8; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes screen-pulse {
+  0%, 100% { background: #0B1733; }
+  50%      { background: #14224a; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes stagger-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mood-pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.18); }
+  70%  { transform: scale(0.96); }
+  100% { transform: scale(1.08); }
+}
+
+@keyframes border-glow {
+  0%, 100% { box-shadow: -4px 0 0 0 var(--st-sage-deep), 0 0 0 0 transparent; }
+  50%      { box-shadow: -4px 0 0 0 var(--st-sage), 0 0 16px 0 rgba(148,183,158,0.4); }
+}
+
+@keyframes sos-ambient {
+  0%, 100% { box-shadow: 0 12px 36px rgba(224,138,122,0.4), inset 0 4px 12px rgba(255,255,255,0.18), inset 0 -8px 12px rgba(0,0,0,0.18), 0 0 0 0 rgba(224,138,122,0); }
+  50%      { box-shadow: 0 12px 36px rgba(224,138,122,0.4), inset 0 4px 12px rgba(255,255,255,0.18), inset 0 -8px 12px rgba(0,0,0,0.18), 0 0 40px 0 rgba(224,138,122,0.35); }
+}
+
+@keyframes msg-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes button-shimmer {
+  0%   { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2px); }
+}
+
+/* ---------- App-wide helpers ---------- */
+.app-screen {
+  animation: fade-in 0.25s ease-out;
+}
+
+/* Cascading card stagger — drop class .stagger-item on each card */
+.stagger-item {
+  opacity: 0;
+  animation: stagger-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.stagger-item:nth-child(1) { animation-delay: 0ms; }
+.stagger-item:nth-child(2) { animation-delay: 70ms; }
+.stagger-item:nth-child(3) { animation-delay: 140ms; }
+.stagger-item:nth-child(4) { animation-delay: 210ms; }
+.stagger-item:nth-child(5) { animation-delay: 280ms; }
+.stagger-item:nth-child(6) { animation-delay: 350ms; }
+.stagger-item:nth-child(7) { animation-delay: 420ms; }
+.stagger-item:nth-child(8) { animation-delay: 490ms; }
+
+.tap-scale:active { transform: scale(0.97); }
+.tap-scale { transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1); }
+
+.btn-shimmer {
+  background-image: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: button-shimmer 3.6s ease-in-out infinite;
+}
+
+/* Custom scrollbars hidden inside phone */
+.phone-scroll::-webkit-scrollbar { width: 0; height: 0; }
+.phone-scroll { scrollbar-width: none; }
+
+.chip-scroll::-webkit-scrollbar { height: 0; }
+.chip-scroll { scrollbar-width: none; }
+
+/* Toggle switch */
+.toggle {
+  width: 44px; height: 26px; border-radius: 999px;
+  background: #cdd2dc; position: relative;
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+.toggle.on { background: var(--st-tidewater); }
+.toggle::after {
+  content: ""; position: absolute;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #fff; top: 2px; left: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+}
+.toggle.on::after { transform: translateX(18px); }
+.toggle.locked { background: var(--st-sage-deep); opacity: 0.9; cursor: not-allowed; }
+
+/* Star rating button */
+.star-btn { transition: transform 0.15s ease; }
+.star-btn:active { transform: scale(0.9); }
+
+/* Loading shimmer (skeleton) */
+.shimmer {
+  background: linear-gradient(90deg, rgba(0,0,0,0.04) 25%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.04) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+/* Mood emoji button hover */
+.mood-btn { transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease; }
+.mood-btn:active { transform: scale(0.94); }
+.mood-btn.selected { animation: mood-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 8px 24px rgba(11,23,51,0.18); }
+
+/* Active SOS button ambient pulse */
+.sos-ambient { animation: sos-ambient 3s ease-in-out infinite; }
+
+/* Center tab subtle bob */
+.tab-sos { animation: float-bob 3s ease-in-out infinite; }
+
+/* Swipe tabs */
+.swipe-track {
+  display: flex;
+  transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  height: 100%;
+  will-change: transform;
+}
+.swipe-pane {
+  flex: 0 0 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.swipe-pane::-webkit-scrollbar { width: 0; }
+
+.tabpill-track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(11,23,51,0.04);
+  border-radius: 999px;
+}
+.tabpill-indicator {
+  position: absolute;
+  top: 4px; bottom: 4px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(11,23,51,0.10), 0 0 0 1px rgba(11,23,51,0.04);
+  transition: left 0.32s cubic-bezier(0.22, 1, 0.36, 1), width 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 0;
+}
+.tabpill-btn {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  padding: 7px 4px;
+  border-radius: 999px;
+  font-family: var(--st-text), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--st-mid);
+  background: transparent;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+.tabpill-btn.active { color: var(--st-tidewater); }
+
+/* Tab bar active glow */
+.tabbar-glow {
+  position: absolute;
+  bottom: 18px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(43,122,140,0.25) 0%, transparent 70%);
+  pointer-events: none;
+  transition: left 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+  z-index: 0;
+}
