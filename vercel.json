@@ -1,11 +1,27 @@
 {
-  "buildCommand": "echo 'No build needed'",
-  "outputDirectory": ".",
-  "devCommand": "python -m http.server 3000",
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "package*.json",
+      "use": "@vercel/static"
+    }
+  ],
   "routes": [
     {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*\\.css|.*\\.js|.*\\.html|.*\\.json)$",
+      "dest": "/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/SafeTrace AI.html"
+      "dest": "/server.js"
     }
   ]
 }
